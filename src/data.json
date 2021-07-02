@@ -1,0 +1,74 @@
+[
+  {
+    "date": "19-07-2016",
+    "name": "Page changes",
+    "fav": false,
+    "status": "Closed"
+  },
+  {
+    "date": "19-07-2016",
+    "name": "Review of last issues",
+    "fav": false,
+    "status": "Open"
+  },
+  {
+    "date": "18-07-2016",
+    "name": "Visual UI Update Review",
+    "fav": true,
+    "status": "Closed"
+  },
+  {
+    "date": "18-07-2016",
+    "name": "Sidebar changes",
+    "fav": true,
+    "status": "Closed"
+  },
+  {
+    "date": "15-07-2016",
+    "name": "Crash update",
+    "fav": true,
+    "status": "Closed"
+  },
+  {
+    "date": "15-07-2016",
+    "name": "Page visual UI Update Review",
+    "fav": false,
+    "status": "Open"
+  },
+  {
+    "date": "15-07-2016",
+    "name": "Sidebar update",
+    "fav": true,
+    "status": "Closed"
+  },
+  {
+    "date": "14-07-2016",
+    "name": "Crash issue",
+    "fav": false,
+    "status": "Closed"
+  },
+  {
+    "date": "14-07-2016",
+    "name": "Visual update & Crash resolve",
+    "fav": false,
+    "status": "Open"
+  },
+  {
+    "date": "14-07-2016",
+    "name": "Sidebar update",
+    "fav": true,
+    "status": "Closed"
+  },
+  {
+    "date": "12-07-2016",
+    "name": "Review page changes",
+    "fav": true,
+    "status": "Open"
+  },
+  {
+    "date": "12-07-2016",
+    "name": "Page improves",
+    "fav": false,
+    "status": "Closed"
+  }
+]

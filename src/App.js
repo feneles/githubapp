@@ -1,5 +1,5 @@
 //Import Core
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //Import Styled Components
 import styled from 'styled-components';
 //Import Material UI
@@ -13,6 +13,8 @@ import background from './assets/background.jpg';
 import icon_closed from './assets/icon-closed-issue.svg';
 import icon_github from './assets/icon-github.svg';
 import icon_open from './assets/icon-open-issue.svg';
+//Import DummyData
+import data from './data.json';
 
 const dummyDataSections = [
   {
@@ -26,81 +28,6 @@ const dummyDataSections = [
   {
     sectionName: 'Closed',
     icon: icon_closed
-  }
-];
-
-const dummyDataTasks = [
-  {
-    date: '19-07-2016',
-    name: 'Page changes',
-    fav: false,
-    open: true
-  },
-  {
-    date: '19-07-2016',
-    name: 'Review of last issues',
-    fav: false,
-    open: false
-  },
-  {
-    date: '18-07-2016',
-    name: 'Visual UI Update Review',
-    fav: true,
-    open: false
-  },
-  {
-    date: '18-07-2016',
-    name: 'Sidebar changes',
-    fav: true,
-    open: true
-  },
-  {
-    date: '15-07-2016',
-    name: 'Crash update',
-    fav: true,
-    open: false
-  },
-  {
-    date: '15-07-2016',
-    name: 'Page visual UI Update Review',
-    fav: false,
-    open: false
-  },
-  {
-    date: '15-07-2016',
-    name: 'Sidebar update',
-    fav: true,
-    open: false
-  },
-  {
-    date: '14-07-2016',
-    name: 'Crash issue',
-    fav: false,
-    open: true
-  },
-  {
-    date: '14-07-2016',
-    name: 'Visual update & Crash resolve',
-    fav: false,
-    open: false
-  },
-  {
-    date: '14-07-2016',
-    name: 'Sidebar update',
-    fav: true,
-    open: false
-  },
-  {
-    date: '12-07-2016',
-    name: 'Review page changes',
-    fav: true,
-    open: true
-  },
-  {
-    date: '12-07-2016',
-    name: 'Page improves',
-    fav: false,
-    open: false
   }
 ];
 
@@ -162,6 +89,18 @@ const StyledList = styled(List)`
 
 const App = () => {
   const [isActive, setIsActive] = useState('All');
+  const [activeTasks, setActiveTasks] = useState([]);
+
+  console.log(data.length);
+  console.log(data.filter(el => el.status === isActive));
+
+  useEffect(() => {
+    if (isActive === 'All') {
+      setActiveTasks(data);
+    } else {
+      setActiveTasks(data.filter(el => el.status === isActive));
+    }
+  }, [isActive]);
 
   return (
     <StyledWrapper maxWidth="md">
@@ -180,7 +119,7 @@ const App = () => {
         </StyledList>
       </StyledLeftBox>
       <StyledRightBox elevation={13}>
-        {dummyDataTasks.map((el, index) => (
+        {activeTasks.map((el, index) => (
           <TaskField key={el.name + index} taskName={el.name} fav={el.fav} />
         ))}
       </StyledRightBox>
