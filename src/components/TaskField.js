@@ -12,13 +12,15 @@ const StyledBox = styled(Box)`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 2px 9px;
     height: 40px;
-    width: 90%;
-    border: 1px solid #e0e0e0;
+    max-height: 40px;
+    width: 100%;
+    border: 1.5px solid #e0e0e0;
     border-radius: 4px;
-    margin: 5px;
+    margin: 3px 5px;
     background-color: #fff;
+    box-sizing: border-box;
   }
 `;
 

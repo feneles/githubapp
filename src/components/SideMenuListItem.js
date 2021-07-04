@@ -12,8 +12,10 @@ const StyledListItem = styled(ListItem)`
     justify-content: space-between;
     padding: 9px 15px;
     height: 50px;
+    transition: 0.5s;
     :hover {
       cursor: pointer;
+      background-color: rgba(41, 42, 72, 0.5);
     }
   }
 `;
@@ -35,8 +37,8 @@ const StyledSectionName = styled(Typography)`
 
 const StyledValue = styled(Typography)`
   && {
-    font-size: 13px;
-    color: #373753;
+    font-size: 14px;
+    color: #777688;
   }
 `;
 

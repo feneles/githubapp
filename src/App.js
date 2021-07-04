@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 //Import Styled Components
 import styled from 'styled-components';
 //Import Material UI
-import { Container, Paper, List } from '@material-ui/core';
+import { Container, Paper, List, Typography, Box } from '@material-ui/core';
 //Import Components
 import SideMenuListItem from './components/SideMenuListItem';
 import SideMenuTopSection from './components/SideMenuTopSection';
@@ -15,21 +15,6 @@ import icon_github from './assets/icon-github.svg';
 import icon_open from './assets/icon-open-issue.svg';
 //Import DummyData
 import data from './data.json';
-
-const dummyDataSections = [
-  {
-    sectionName: 'All',
-    icon: icon_github
-  },
-  {
-    sectionName: 'Open',
-    icon: icon_open
-  },
-  {
-    sectionName: 'Closed',
-    icon: icon_closed
-  }
-];
 
 const StyledWrapper = styled(Container)`
   && {
@@ -48,11 +33,14 @@ const StyledRightBox = styled(Paper)`
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
+    overflow-x: hidden;
     height: 53.5vh;
-    width: 26vw;
+    width: 500px;
     background-color: #f6f6f6;
     border-radius: 0 11px 11px 0;
     z-index: 2;
+    padding: 10px;
+    box-sizing: border-box;
     ::-webkit-scrollbar {
       width: 17px;
     }
@@ -74,7 +62,7 @@ const StyledRightBox = styled(Paper)`
 const StyledLeftBox = styled(Paper)`
   && {
     height: 53.5vh;
-    width: 8vw;
+    width: 150px;
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(7px);
     border-radius: 11px 0 0 11px;
@@ -87,44 +75,127 @@ const StyledList = styled(List)`
   }
 `;
 
+const StyledTaskDate = styled(Typography)`
+  && {
+    color: #a8a6b1;
+    font-size: 12px;
+  }
+`;
+
+const StyledTaskDateBox = styled(Box)`
+  && {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 2px 0;
+  }
+`;
+
 const App = () => {
   const [isActive, setIsActive] = useState('All');
   const [activeTasks, setActiveTasks] = useState([]);
-
-  console.log(data.length);
-  console.log(data.filter(el => el.status === isActive));
+  const [sortedData, setSortedData] = useState({});
 
   useEffect(() => {
-    if (isActive === 'All') {
-      setActiveTasks(data);
-    } else {
-      setActiveTasks(data.filter(el => el.status === isActive));
+    const fetchData = () => {
+      if (isActive === 'All') {
+        setActiveTasks(data);
+      } else {
+        setActiveTasks(data.filter(el => el.status === isActive));
+      }
+    };
+    fetchData();
+    const sortData = () => {
+      let groupDataByDate = {};
+      activeTasks.forEach(task => {
+        if (groupDataByDate[task.date]) {
+          groupDataByDate[task.date].push(task);
+        } else {
+          groupDataByDate[task.date] = [task];
+        }
+      });
+      const groupArrays = Object.keys(groupDataByDate).map(date => {
+        return {
+          date,
+          tasks: groupDataByDate[date]
+        };
+      });
+      setSortedData(groupArrays);
+    };
+    sortData();
+  }, [isActive, activeTasks]);
+
+  const getAllItems = data.length;
+  const getOpenItems = data.filter(el => el.status === 'Open').length;
+  const getClosedItems = data.filter(el => el.status === 'Closed').length;
+  const sections = [
+    {
+      sectionName: 'All',
+      icon: icon_github,
+      value: getAllItems
+    },
+    {
+      sectionName: 'Open',
+      icon: icon_open,
+      value: getOpenItems
+    },
+    {
+      sectionName: 'Closed',
+      icon: icon_closed,
+      value: getClosedItems
     }
-  }, [isActive]);
+  ];
 
   return (
     <StyledWrapper maxWidth="md">
       <StyledLeftBox elevation={13}>
         <SideMenuTopSection />
         <StyledList>
-          {dummyDataSections.map((el, index) => (
+          {sections.map((el, index) => (
             <SideMenuListItem
               key={el.sectionName + index}
               icon={el.icon}
               sectionName={el.sectionName}
               isActive={isActive}
               setIsActive={setIsActive}
+              value={el.value}
             />
           ))}
         </StyledList>
       </StyledLeftBox>
       <StyledRightBox elevation={13}>
-        {activeTasks.map((el, index) => (
-          <TaskField key={el.name + index} taskName={el.name} fav={el.fav} />
-        ))}
+        {sortedData.length > 1 &&
+          sortedData.map((el, index) => {
+            return (
+              <Box minWidth="100%" key={el.date + index}>
+                <StyledTaskDateBox>
+                  <StyledTaskDate>{el.date}</StyledTaskDate>
+                </StyledTaskDateBox>
+
+                {el.tasks.map((element, index) => (
+                  <TaskField
+                    key={element.name + index}
+                    taskName={element.name}
+                    fav={element.fav}
+                  />
+                ))}
+              </Box>
+            );
+          })}
       </StyledRightBox>
     </StyledWrapper>
   );
 };
+
+//  {
+//    activeTasks.map((el, index) => {
+//      return (
+//        <>
+//          <Typography>{el.date}</Typography>
+//          <TaskField key={el.name + index} taskName={el.name} fav={el.fav} />
+//        </>
+//      );
+//    });
+//  }
 
 export default App;
