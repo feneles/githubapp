@@ -11,6 +11,9 @@ const StyledDots = styled.div`
     width: 10px;
     border-radius: 50%;
     margin: 5px;
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 
