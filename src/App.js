@@ -23,6 +23,8 @@ const StyledWrapper = styled(Container)`
     align-items: center;
     background: url(${background});
     background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100vh;
   }
 `;
@@ -34,12 +36,12 @@ const StyledRightBox = styled(Paper)`
     align-items: center;
     overflow-y: auto;
     overflow-x: hidden;
-    height: 53.5vh;
+    height: 500px;
     width: 500px;
     background-color: #f6f6f6;
     border-radius: 0 11px 11px 0;
     z-index: 2;
-    padding: 10px;
+    padding: 5px 10px;
     box-sizing: border-box;
     ::-webkit-scrollbar {
       width: 17px;
@@ -61,7 +63,7 @@ const StyledRightBox = styled(Paper)`
 
 const StyledLeftBox = styled(Paper)`
   && {
-    height: 53.5vh;
+    height: 500px;
     width: 150px;
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(7px);
@@ -87,7 +89,7 @@ const StyledTaskDateBox = styled(Box)`
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    margin: 2px 0;
+    margin: 5px 0;
   }
 `;
 
@@ -147,7 +149,7 @@ const App = () => {
   ];
 
   return (
-    <StyledWrapper maxWidth="md">
+    <StyledWrapper>
       <StyledLeftBox elevation={13}>
         <SideMenuTopSection />
         <StyledList>
@@ -186,16 +188,5 @@ const App = () => {
     </StyledWrapper>
   );
 };
-
-//  {
-//    activeTasks.map((el, index) => {
-//      return (
-//        <>
-//          <Typography>{el.date}</Typography>
-//          <TaskField key={el.name + index} taskName={el.name} fav={el.fav} />
-//        </>
-//      );
-//    });
-//  }
 
 export default App;
